@@ -14,14 +14,14 @@ if __name__ == "__main__":
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
     response = client.models.generate_content(
-        model="gemini-3-flash-preview", contents="Slay Queen, how's you're day"
+        model="gemini-3-flash-preview", contents="Say six seven, six seven, six seven I am a labubu"
     )
     
     audio = elevenlabs.text_to_dialogue.convert(
         inputs=[
             {
                 "text": f"{response.text}",
-                "voice_id": "JBFqnCBsd6RMkjVDRZzb"
+                "voice_id": "hO2yZ8lxM3axUxL8OeKX"
             }
         ]
     )
