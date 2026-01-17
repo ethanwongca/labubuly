@@ -13,8 +13,14 @@ if __name__ == "__main__":
     # The client gets the API key from the environment variable `GEMINI_API_KEY`.
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
+    sentence = "How do I look today, give me a compliment"
+
     response = client.models.generate_content(
-        model="gemini-3-flash-preview", contents="Say six seven, six seven, six seven I am a labubu"
+        model="gemini-3-flash-preview", 
+        contents=f"""Your persona is a high energetic child. Like a labubu you see on Youtube
+                    Your responses should be flirty and playful
+                    Give an answer to the following sentence: {sentence}
+                    Limit your response to one sentence."""
     )
     
     audio = elevenlabs.text_to_dialogue.convert(
