@@ -20,7 +20,7 @@ def start_audio_stream():
   if audio_active:
     return
 
-  audio_interface = pyaudio.PyAudio
+  audio_interface = pyaudio.PyAudio()
   frames = []
 
   audio_stream = audio_interface.open(
@@ -63,7 +63,7 @@ start_audio_stream()
 start_time = time.time()
 
 while time.time() - start_time < RECORD_SECONDS:
-  data = mic_stream.read(CHUNK)
+  data = audio_stream.read(CHUNK)
   frames.append(data)
 
 stop_audio_stream()
