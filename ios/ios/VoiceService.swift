@@ -4,13 +4,15 @@
 //
 
 import Foundation
+import Combine
+
 
 struct VoiceRequest: Codable, Sendable {
     let name: String
 }
 
-struct VoiceService {
-    
+class VoiceService: ObservableObject {
+
     func selectVoice(named voiceName: String) async throws -> String {
         guard let url = URL(string: "<endpoint>selected_voice") else {
             throw URLError(.badURL)
