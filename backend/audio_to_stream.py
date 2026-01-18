@@ -1,79 +1,69 @@
-import os
-# import signal
 import time
-from eff_word_net.streams import SimpleMicStream
-from eff_word_net.engine import HotwordDetector
-from eff_word_net.audio_processing import Resnet50_Arc_loss
-# from elevenlabs.client import ElevenLabs
-# from elevenlabs.conversational_ai.conversation import Conversation, ConversationInitiationData
-# from elevenlabs.conversational_ai.default_audio_interface import DefaultAudioInterface
+import pyaudio
+import wave
 
-# elevenlabs=ElevenLabs()
-api_key=os.getenv("ELEVENLABS_API_KEY")
-# agent_id=os.getenv("ELEVENLABS_AGENT_ID")
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 44100
+CHUNK = 1024
+WAV_FILENAME = "audio.wav"
+RECORD_SECONDS = 5
 
-base_model = Resnet50_Arc_loss()
-
-hotword_detector = HotwordDetector(
-  hotword="hey_eleven",
-  model = base_model,
-  reference_file=os.path.join("hotword_refs", "hey_eleven_ref.json"),
-  threshold=0.7,
-  relaxation_time=2
-)
-
-mic_stream = None
+audio_stream = None
+audio_interface = None
 audio_active = False
+frames = []
 
 def start_audio_stream():
-  # Start mic audio stream
-  global mic_stream, audio_active
+  global audio_stream, audio_interface, audio_active, frames
 
   if audio_active:
     return
-  
-  mic_stream = SimpleMicStream(
-    window_length_secs=1.5,
-    sliding_window_secs=0.75,
+
+  audio_interface = pyaudio.PyAudio
+  frames = []
+
+  audio_stream = audio_interface.open(
+    format=FORMAT,
+    channels=CHANNELS,
+    rate=RATE,
+    input=True,
+    frames_per_buffer=CHUNK
   )
 
-  mic_stream.start_stream()
   audio_active = True
-  print("Microphone stream started")
+  print("Audio stream started")
 
 def stop_audio_stream():
-  global mic_stream, audio_active
+  global audio_stream, audio_interface, audio_active, frames
+
+  if not audio_active:
+    return
 
   try:
-    if mic_stream:
-      mic_stream = None
-      audio_active = False
-      print("Microphone stream stopped")
+    audio_stream.stop_stream()
+    audio_stream.close()
+    audio_interface.terminate()
+    audio_active = False
+
+    print("Audio stream stopped")
+
+    with wave.open(WAV_FILENAME, "wb") as wf:
+      wf.setnchannels(CHANNELS)
+      wf.setsampwidth(audio.get_sample_size(FORMAT))
+      wf.setframerate(RATE)
+      wf.writeframes(b''.join(frames))
+    
+    print("Audio file saved")
   except Exception as e:
-    print(f"Error stopping microphone stream: {e}")
+    print(f"Error stopping audio stream: {e}")
 
-def wait_for_hotword():
-  global mic_stream
+start_audio_stream()
 
-  print("Say 'Hey Eleven' to start audio stream")
+start_time = time.time()
 
-  mic_stream = SimpleMicStream(
-    window_length_secs=1.5,
-    sliding_window_secs=0.75,
-  )
+while time.time() - start_time < RECORD_SECONDS:
+  data = mic_stream.read(CHUNK)
+  frames.append(data)
 
-  mic_stream.start_stream()
-
-  while True:
-    frame = mic_stream.getFrame()
-    result = hotword_detector.scoreFrame(frame)
-
-    if result and result["match"]:
-      print("Hotword detected")
-      stop_audio_stream()
-      start_audio_stream()
-      break
-
-wait_for_hotword()
-time.sleep(5)
 stop_audio_stream()
