@@ -50,7 +50,7 @@ def stop_audio_stream():
 
     with wave.open(WAV_FILENAME, "wb") as wf:
       wf.setnchannels(CHANNELS)
-      wf.setsampwidth(audio.get_sample_size(FORMAT))
+      wf.setsampwidth(audio_interface.get_sample_size(FORMAT))
       wf.setframerate(RATE)
       wf.writeframes(b''.join(frames))
     
