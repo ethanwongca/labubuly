@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 
 from audio_to_stream import AudioRecorder
 from audio_service import TexttoAudioService
+from six_seven import SixSeven
 from elevenlabs.play import play
 
 load_dotenv()
@@ -18,8 +19,11 @@ MODEL_ID = "scribe_v2_realtime"
 WS_URL = f"wss://api.elevenlabs.io/v1/speech-to-text/realtime?model_id={MODEL_ID}"
 
 async def main():
+    recorder = AudioRecorder(rate=16000)
     ai_service = TexttoAudioService()
-    recorder = AudioRecorder(rate=16000) 
+    six_seven = SixSeven()
+
+    six_seven.six_seven()
     recorder.start_audio_stream()
     
     headers = {"xi-api-key": ELEVENLABS_API_KEY}
