@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  LabubulyApp
+//  ios
 //
 //  Created by Ethan Parker Wong on 2026-01-17.
 //
