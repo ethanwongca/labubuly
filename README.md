@@ -21,3 +21,12 @@ Labubu: Your sweet hellos
 
 Devpost: COMING SOON! <br/>
 Demo: COMING SOON! <br/>
+
+## Some Behind the Scenes Images! 
+![IMG_2493](https://github.com/user-attachments/assets/6381a605-564b-4818-987a-f874fac53943)
+
+## And Some App Images!
+<img width="645" height="1398" alt="IMG_2495" src="https://github.com/user-attachments/assets/1b262c42-70fe-453d-8809-10fbe7945006" />
+
+<img width="645" height="1398" alt="IMG_2494" src="https://github.com/user-attachments/assets/8e2e9e07-5379-49ea-b41d-c372b62623ea" />
+
