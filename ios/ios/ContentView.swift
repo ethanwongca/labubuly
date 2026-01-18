@@ -9,13 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            ZStack {
+                BackgroundView(videoName: "spacebackground", videoType: "mov")
+                    .ignoresSafeArea()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .allowsHitTesting(false)
+    //            Image(systemName: "globe")
+    //                .imageScale(.large)
+    //                .foregroundStyle(.tint)
+                Text("labubuly")
+                    .foregroundColor(.white)
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                
+                NavigationLink("Enter") {
+                    HomeView()
+                }
+
+                
+            }
+            
         }
-        .padding()
+        
+        //.padding()
     }
 }
 
