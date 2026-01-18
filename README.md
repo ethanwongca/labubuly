@@ -6,6 +6,9 @@ Have you ever wanted your labubu to talk? What about to rizz you up on every que
 
 Using a backend using Python, FastAPI, Gemini, and ElevenLabs. A mobile app using Swift and SwiftUI to change the voice of the Labubu Voice Assistant. Also, some hardware to make the Labubu move. Our Labubu can do it all. <br/>
 
+## Our Product <br/>
+![IMG_9534](https://github.com/user-attachments/assets/ec816d74-f2a6-4fbb-8429-c89fcea7f246)
+
 ## Features
 - Voice Interaction - Powered by ElevenLabs for natural speech
 - AI Responses - Google Gemini integration for intelligent conversations
