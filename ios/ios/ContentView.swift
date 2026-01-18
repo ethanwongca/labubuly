@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showHomeView: Bool = false
+    @State private var textOpacity: Double = 0
     var body: some View {
      
         ZStack(alignment: .bottom){
@@ -22,10 +23,17 @@ struct ContentView: View {
                         .allowsHitTesting(false)
                     
                     
-                    Text("Tap to start")
+                    Text("tap to start")
+                        .opacity(textOpacity)
                         .padding(.bottom, 30)
-                        .font(.system(size: 30, design: .serif))
+                        .font(.system(size: 30, design: .rounded))
                         .foregroundColor(.white)
+                        .onAppear() {
+                            withAnimation(.easeIn(duration: 1.5)) {
+                                textOpacity = 1
+                            }
+                        }
+                        
                     
                     
                     
