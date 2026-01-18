@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -15,10 +15,13 @@ class VoiceAPI(BaseModel):
 @app.post("/selected_voice")
 def select_voice(selected_voice: VoiceAPI):
     name = selected_voice.name
+    voice_id = None 
     for voice_dict in voices:
         if voice_dict["name"] == name:
             voice_id = voice_dict["voice_id"]
-        else:
-            assert "Voice ID Not In Dict"
+            break
 
+    if not voice_id:
+        raise HTTPException(status_code=404, detail="Voice name not found")
+    
     return voice_id
