@@ -5,6 +5,7 @@ import base64
 import os
 import time
 from dotenv import load_dotenv
+from gpiozero import Button
 
 from audio_to_stream import AudioRecorder
 from audio_service import TexttoAudioService
@@ -18,12 +19,15 @@ VOICE_ID = "exxAZVMfY4Qs7F9CS1oN"
 MODEL_ID = "scribe_v2_realtime"
 WS_URL = f"wss://api.elevenlabs.io/v1/speech-to-text/realtime?model_id={MODEL_ID}"
 
+running = False
+
 async def main():
+    global running
+
     recorder = AudioRecorder(rate=16000)
     ai_service = TexttoAudioService()
     six_seven = SixSeven()
 
-    six_seven.six_seven()
     recorder.start_audio_stream()
     
     headers = {"xi-api-key": ELEVENLABS_API_KEY}
@@ -97,9 +101,23 @@ async def main():
         # We run them together. The program stays open until BOTH are finished.
         await asyncio.gather(send_audio(), receive_transcripts())
         print("Pipeline complete. Goodbye!")
+        await six_seven.six_seven()
+        running = False
 
 if __name__ == "__main__":
     try:
-        asyncio.run(main())
+        button = Button(22)
+
+        while True:
+            button.wait_for_press()
+            button.wait_for_release()
+
+            time.sleep(0.2)
+
+            if not running:
+                running = True
+                asyncio.run(main())
+
     except KeyboardInterrupt:
         print("\nLabubu is going to sleep! Bye bye!")
+        running = False
