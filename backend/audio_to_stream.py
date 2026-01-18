@@ -49,15 +49,15 @@ def stop_audio_stream():
       mic_stream = None
       audio_active = False
       print("Microphone stream stopped")
-    except Exception as e:
-      print(f"Error stopping microphone stream: {e}")
+  except Exception as e:
+    print(f"Error stopping microphone stream: {e}")
 
 def wait_for_hotword():
   global mic_stream
 
   print("Say 'Hey Eleven' to start audio stream")
 
-  mic_stream = (
+  mic_stream = SimpleMicStream(
     window_length_secs=1.5,
     sliding_window_secs=0.75,
   )
