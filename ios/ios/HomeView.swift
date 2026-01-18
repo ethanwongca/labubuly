@@ -8,27 +8,32 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var service = VoiceService()
+    private var service = VoiceService()
     var body: some View {
-        
-        Menu("Voice Picker") {
-            Button("Default") {
-                sendVoice(name: "Default")
-            }
-            Button("Breathy") {
-                sendVoice(name: "Breathy")
-            }
-            Button("Deep") {
-                sendVoice(name: "Deep")
-            }
-            Button("Whiny") {
-                sendVoice(name: "Whiny")
-            }
-            Button("Screech") {
-                sendVoice(name: "Screech")
+        ZStack{
+            Color.white
+            Menu("Voice Picker") {
+                Button("Default") {
+                    sendVoice(name: "Default")
+                }
+                Button("Breathy") {
+                    sendVoice(name: "Breathy")
+                }
+                Button("Deep") {
+                    sendVoice(name: "Deep")
+                }
+                Button("Whiny") {
+                    sendVoice(name: "Whiny")
+                }
+                Button("Screech") {
+                    sendVoice(name: "Screech")
+                }
             }
         }
+        
     }
+        
+
     func sendVoice(name: String) {
         Task {
             do {

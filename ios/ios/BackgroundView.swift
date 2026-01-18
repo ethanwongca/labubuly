@@ -16,13 +16,15 @@ struct BackgroundView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: AVPlayerView, context: Context) {
-        
     }
+    
+   
 }
 
 class AVPlayerView: UIView{
     var player: AVPlayer!
     var playerLayer: AVPlayerLayer!
+    private var observer: Any?
     init(frame: CGRect, videoName: String, videoType: String) {
         super.init(frame: frame)
     
@@ -31,10 +33,11 @@ class AVPlayerView: UIView{
     playerLayer = AVPlayerLayer(player: player)
     playerLayer.videoGravity = .resizeAspectFill
     layer.addSublayer(playerLayer)
-    NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem,queue: .main)
+    observer = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem,queue: .main)
     { [weak self] _ in
                 self?.player.seek(to: .zero)
                 self?.player.play()
+                
             }
 
             player.play()
@@ -48,6 +51,16 @@ class AVPlayerView: UIView{
         super.layoutSubviews()
         playerLayer.frame = bounds
     }
+    
+    deinit {
+        if let observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        player?.pause()
+    }
+    
+  
+    
             
     
 }
