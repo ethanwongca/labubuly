@@ -22,8 +22,7 @@ Labubu: 19 silly, but you're a 10 in my eyes
 User: Hello hello hello
 Labubu: Your sweet hellos 
 
-Devpost: [Link!](https://devpost.com/software/labubly) <br/>
-Demo: COMING SOON! <br/>
+**Devpost:** [Link!](https://devpost.com/software/labubly) <br/>
 
 ## Some Behind the Scenes Images! 
 ![IMG_2493](https://github.com/user-attachments/assets/6381a605-564b-4818-987a-f874fac53943)
