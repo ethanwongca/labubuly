@@ -1,5 +1,4 @@
 from gpiozero import Servo
-import time
 import asyncio
 
 class SixSeven:
@@ -11,7 +10,7 @@ class SixSeven:
     for _ in range(3):
       self.servo_1.min()
       self.servo_2.min()
-      time.sleep(0.25)
+      await asyncio.sleep(0.25)
       self.servo_1.max()
       self.servo_2.max()
-      time.sleep(0.25)
+      await asyncio.sleep(0.25)
